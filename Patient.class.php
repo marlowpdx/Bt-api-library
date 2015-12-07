@@ -19,7 +19,6 @@ class Patient
     */
     private $user = 'xxxxxxx';
     private $pass = 'xxxxxxx';
-    
     /**
     * The WSDL File
     *
@@ -49,7 +48,7 @@ class Patient
             'trace' => 1
         );
     }
-	/**
+    /**
      * Generic Patient API Call
      *
      * @param string $call (Invokes a SOAP method)
@@ -70,11 +69,12 @@ class Patient
      */
     public function PatientCreate($query)
     {
+        $client     = new SoapClient($this->wsdl, $this->connection);
         $response 	= $this->apiCall->PatientCreate($query);
         $results 	= json_decode(json_encode($response), true);
         return $results;
     }
-	/**
+    /**
      * Brightree ID Patient API Call
      *
      * @param string $id 
@@ -87,7 +87,7 @@ class Patient
         $responsearray    = json_decode(json_encode($response->PatientFetchByBrightreeIDResult->Items->Patient), true);
         return $responsearray;
     }
-	/**
+    /**
      * External ID Patient API Call
      *
      * @param string $id 
@@ -95,11 +95,12 @@ class Patient
      */
     public function PatientFetchByExternalID($id)
     {
+        $client     = new SoapClient($this->wsdl, $this->connection);
         $response = $this->apiCall->PatientFetchByExternalID(array("ExternalID" => $id));
-        $responsearray    = json_decode(json_encode($response->PatientFetchByExternalIDResult->Items->Patient), true);
+        $responsearray    = json_decode(json_encode($response), true);
         return $responsearray;
     }
-	/**
+    /**
      * Get Patients by phone number
      *
      * @param: Number, SortParam, PageSize, Page 
@@ -130,7 +131,7 @@ class Patient
     /**
      * Remove Patient Marketing Referral
      * Used to remove a referral to Patient
-	 *
+     *
      * @param: BrightreeID 
      * 
      */    
@@ -141,7 +142,7 @@ class Patient
         $responsearray    = json_decode(json_encode($response), true);
         return $responsearray;
     }
-	/**
+    /**
      * Patient Search
      *
      * @param: Patient Info 
@@ -154,7 +155,7 @@ class Patient
         $responsearray    = json_decode(json_encode($response), true);
         return $responsearray;
     }
-	/**
+    /**
      * Patient Payor Add
      *
      * @param: PatientKey, PayorKey, PatientPayor 
@@ -167,7 +168,7 @@ class Patient
         $responsearray    = json_decode(json_encode($response), true);
         return $responsearray;
     }
-	/**
+    /**
      * Patient Payor Remove
      *
      * @param: BrightreeID 
@@ -180,7 +181,7 @@ class Patient
         $responsearray    = json_decode(json_encode($response), true);
         return $responsearray;
     }
-	/**
+    /**
      * Patient Payor Fetch
      *
      * @param: PatientKey, PayorKey 
@@ -193,7 +194,7 @@ class Patient
         $responsearray    = json_decode(json_encode($response), true);
         return $responsearray;
     }
-	/**
+    /**
      * Patient Payor Fetch ALL
      *
      * @param: PatientKey 
@@ -206,7 +207,7 @@ class Patient
         $responsearray    = json_decode(json_encode($response), true);
         return $responsearray;
     } 
-	/**
+    /**
      * Patient Payor Update
      *
      * @param:  BrightreeID, PatientPayor
@@ -219,7 +220,7 @@ class Patient
         $responsearray    = json_decode(json_encode($response), true);
         return $responsearray;
     }   
-	/**
+    /**
      * Patient Create Note
      *
      * @param:  PatientNote
@@ -236,7 +237,7 @@ class Patient
         $responsearray    = json_decode(json_encode($response), true);
         return $responsearray;
     }
-	/**
+    /**
      * Patient Get Note By Patient
      *
      * @param:  BrightreeID of the Patient
@@ -249,7 +250,7 @@ class Patient
         $responsearray = json_decode(json_encode($response), true);
         return $responsearray;
     }
-	/**
+    /**
      * Patient Get Note By Key
      *
      * @param:  BrightreeID of the Note
@@ -262,7 +263,7 @@ class Patient
         $responsearray = json_decode(json_encode($response), true);
         return $responsearray;
     }
-	/**
+    /**
      * Patient Note Update
      *
      * @param:  BrightreeID of the Note
